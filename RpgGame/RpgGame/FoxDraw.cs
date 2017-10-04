@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace GreenFox
 {
     public class FoxDraw
     {
+        private const int TILEWIDTH = 50;
+        private const int TILEHEIGHT = 50;
+
         private Canvas Canvas { get; set; }
         private SolidColorBrush LineColor { get; set; } = SystemColors.WindowFrameBrush;
         private SolidColorBrush ShapeColor { get; set; } = new SolidColorBrush(Colors.DarkGreen);
@@ -32,19 +37,19 @@ namespace GreenFox
             ShapeColor = new SolidColorBrush(color);
         }
 
-        public void DrawEllipse(double x, double y, double width, double height)
-        {
-            var ellipse = new Ellipse()
-            {
-                Stroke = LineColor,
-                Fill = ShapeColor,
-                Width = width,
-                Height = height
-            };
+        //public void DrawEllipse(double x, double y, double width, double height)
+        //{
+        //    var ellipse = new Ellipse()
+        //    {
+        //        Stroke = LineColor,
+        //        Fill = ShapeColor,
+        //        Width = width,
+        //        Height = height
+        //    };
 
-            Canvas.Children.Add(ellipse);
-            SetPosition(ellipse, x, y);
-        }
+        //    Canvas.Children.Add(ellipse);
+        //    SetPosition(ellipse, x, y);
+        //}
 
         public void DrawLine(Point p1, Point p2)
         {
@@ -86,30 +91,43 @@ namespace GreenFox
             Canvas.Children.Add(polygon);
         }
 
-        public void DrawRectangle(double x, double y, double width, double height)
+        //public void DrawRectangle(double x, double y, double width, double height)
+        //{
+        //    var rectangle = new Rectangle()
+        //    {
+        //        Stroke = LineColor,
+        //        Fill = ShapeColor,
+        //        Width = width,
+        //        Height = height
+        //    };
+
+        //    Canvas.Children.Add(rectangle);
+        //    SetPosition(rectangle, x, y);
+        //}
+
+        public void AddImage(string source, Point coordinate)
         {
-            var rectangle = new Rectangle()
+            var image = new Image()
             {
-                Stroke = LineColor,
-                Fill = ShapeColor,
-                Width = width,
-                Height = height
+                Width = TILEWIDTH,
+                Height = TILEHEIGHT,
+                Source = new BitmapImage(new Uri(source, UriKind.Relative))
             };
 
-            Canvas.Children.Add(rectangle);
-            SetPosition(rectangle, x, y);
-        }
-
-        public void AddImage(Image image, double x, double y)
-        {
             Canvas.Children.Add(image);
-            SetPosition(image, x, y);
+            SetPosition(image, coordinate);
         }
 
-        public void SetPosition(UIElement uIElement, double x, double y)
+        public void AddImage(Canvas canvas, Point coordinate)
         {
-            Canvas.SetLeft(uIElement, x);
-            Canvas.SetTop(uIElement, y);
+            Canvas.Children.Add(canvas);
+            SetPosition(canvas, coordinate);
+        }
+
+        public void SetPosition(UIElement uIElement, Point coordinate)
+        {
+            Canvas.SetLeft(uIElement, coordinate.X);
+            Canvas.SetTop(uIElement, coordinate.Y);
         }
 
         public PointCollection ListToPointCollection(IEnumerable<Point> points)
@@ -122,6 +140,11 @@ namespace GreenFox
             }
 
             return pointCollection;
+        }
+
+        public void ClearCanvas()
+        {
+            Canvas.Children.Clear();
         }
     }
 }

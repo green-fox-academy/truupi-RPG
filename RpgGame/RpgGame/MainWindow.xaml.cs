@@ -12,17 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GreenFox;
+using System.IO;
 
 namespace RpgGame
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        public Random rnd = new Random();
+
         public MainWindow()
         {
             InitializeComponent();
+            FoxDraw foxDraw = new FoxDraw(canvas);
+            Map map = new Map(foxDraw);
         }
     }
 }
