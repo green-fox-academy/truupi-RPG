@@ -23,6 +23,7 @@ namespace RpgGame
 
         FoxDraw foxDraw;
         Hero hero;
+        Skeleton skeletons;
         Map map;
 
         public MainWindow()
@@ -31,34 +32,36 @@ namespace RpgGame
             foxDraw = new FoxDraw(canvas);
             map = new Map(foxDraw);
             hero = new Hero(foxDraw);
+            skeletons = new Skeleton(foxDraw);
+
         }
 
         private void WindowKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left)
             {
-                foxDraw.ClearCanvas();
+                UpdateLayout();
                 map.MapDraw(foxDraw);
                 hero.MoveHeroLeft(foxDraw);
             }
 
             if (e.Key == Key.Right)
             {
-                foxDraw.ClearCanvas();
+                UpdateLayout();
                 map.MapDraw(foxDraw);
                 hero.MoveHeroRight(foxDraw);
             }
 
             if (e.Key == Key.Up)
             {
-                foxDraw.ClearCanvas();
+                UpdateLayout();
                 map.MapDraw(foxDraw);
                 hero.MoveHeroUp(foxDraw);
             }
 
             if (e.Key == Key.Down)
             {
-                foxDraw.ClearCanvas();
+                UpdateLayout();
                 map.MapDraw(foxDraw);
                 hero.MoveHeroDown(foxDraw);
             }
