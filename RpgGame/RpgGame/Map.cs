@@ -44,6 +44,7 @@ namespace RpgGame
                     foxDraw.AddImage(@"../../Assets/wall.png", CoordinateCollection[i]);
                 }
             }
+
         }
 
         public void MapCreation()
